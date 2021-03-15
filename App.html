@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" name="viewport" 
+        content="width=device-width, 
+        initial-scale=1.0, 
+        user-scalable=no" />
+  <title>Job Scheduler</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="main2.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    #container {
+	  position: fixed;
+	  top: 15%;
+	  left: 5%;
+	  bottom: 10%;
+	  right: 15%;
+      width: 80%;
+      height: 80%;
+      background-color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 7px;
+      touch-action: none;
+    }
+	
+    .item {
+	
+      <!-- width: 90px; -->
+      <!-- height: 90px;   -->
+      border-radius: 50%;
+      touch-action: none;
+      user-select: none;
+	  position: relative;
+    }
+	
+	.one {
+      width: 40px;
+      height: 40px;
+      top: -40%;
+      left: -10%;
+    }
+	
+	.statusHover:hover .one {
+		background-color:rgb(245, 230, 99);
+		border: 10px solid rgba(136, 136, 136, .5);
+	}
+	
+    .item:active {
+      <!-- opacity: .75; -->
+    }
+	
+    .item:hover {
+      cursor: pointer;
+    }
+	
+  </style>
+  
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <script src="drag.js"></script>
+</head>
+
+<body>  
+  
+  <div id="outerContainer">
+  	
+	<div class="search">
+		<input type="text" placeholder="Search..." float-right>
+	</div>
+	
+	<div class="dropdown">
+		<button onclick="myStatus()" class="dropDown">Status</button>
+		<div class="dropdown-content">
+		<a href="#" target="popup" width="25" height="20">Active</a>
+		<a href="#" width="25" height="20">Inactive</a>
+		</div>		
+	</div>
+	
+	<script>
+	function myStatus() {
+		var myWindow = window.open("", "Machine Status", "width=400, height=200");
+		myWindow.document.write("<p>Current machine status<br>");
+		myWindow.document.write("<img src=\"image_1.png\".setAttribute(opacity:0.3)>");
+		myWindow.document.write("<p>33%<br><br>");
+		myWindow.document.write("<img src=\"image_4.png\">");
+	}
+	</script>
+	
+	<div class="dropdown" style="margin-left: 750px">
+		<button class="dropDown">Tools</button>
+		<div class="dropdown-content">
+		
+		<script>
+	function imageShow() {
+		document.getElementByID('person_1.png').style.display = "block";
+	}
+	</script>	
+	
+		<button onclick="addObject(0)"><img src="image_2.png" width="25" height="20"> Job Task</button>
+		<button onclick="addObject(1)"><img src="person_1.png" width="25" height="20"> Employee</button>
+		<button onclick="addObject(2)"><img src="image_1.png" width="25" height="20"> Machine</a>
+		<button onclick="addObject(3)"><img src="ship.png" width="25" height="20"> Shipping</a>
+		<button onclick="addObject(4)"><img src="truck.png" width="25" height="20"> Truck</a>
+		<button onclick="addObject(5)"><img src="image_5.png" width="25" height="20"> Lift Truck</a>
+		</div>		
+	</div>
+	
+	
+	<!-- <img src="trash.png" title="trash" width="40" height="35" style="margin-left: 75px" ondragover="allowDrop(event)"> -->
+	
+	<!-- <div id="trash" ondrop="drop(event)" ondragover="allowDrop(event)"></div> -->
+	
+	
+	<script>
+		function allowDrop(ev) {
+			ev.preventDefault();
+		}
+			
+		function drag(ev) {
+			ev.dataTransfer.setData("Text", ev.target.id);
+		}
+		
+		function drop(ev) {
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("Text");
+			ev.target.appendChild(document.getElementsById(data));
+			document.getElementById('trash').style.backgroundImage = "url('trash.png')"
+			document.getElementsByClassName('item one').style.visibility = "hidden"
+		}
+			
+	</script>
+
+	<div class="navigation">
+		<ul>
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+					<span class="title">Home</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+					<span class="title">Account</span>
+				</a>
+			</li>			
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-commenting-o" aria-hidden="true"></i></span>
+					<span class="title">Messages</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+					<span class="title">Help</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+					<span class="title">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+					<span class="title">Password</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-server" aria-hidden="true"></i></span>
+					<span class="title">Filter</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+					<span class="title">Log Out</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="toggle" onclick="toggleMenu()"></div> 
+	<script type="text/javascript">
+		function toggleMenu() {
+			Let navigation = document.querySelector('.navigation');
+			Let toggle = document.querySelector('.toggle');
+			navigation.classList.toggle('active');
+			toggle.classList.toggle('active');
+		}	
+	</script>
+
+
+	<div id="container">
+	<!-- style="margin-left: 100px"> -->
+	
+	<img src="ship.png" title="Shipping Station" width="75px" height="75px" style="margin-left:100px;">
+	<div class="item one statusHover">
+	<!-- <a href="www.businesscentral.dynamics.com"> -->
+	<img src="image_2.png" >
+	</div>
+	
+	<img src="machine.png" title="Machine" width="75px" height="75px">
+	
+	<div class="item one">
+	<img src="person_1.png" ondragstart="drag(event)">
+	</div>
+	
+	<a href="www.businesscentral.dynamics.com">
+	<img src="image_1.png" title="Customers: Task# Status: " width="75px" height="75px" class="rotateimg90" style="margin-left:150px;">
+	</a>
+		
+	<div class="item one">
+	<img src="image_5.png" ondragstart="drag(event)">
+	</div>
+	
+	<img src="truck.png" title="Transportation" width="90px" height="90px" style="margin-right:100px;">
+	
+	<div id="drag" class="draggable">
+	
+	<img src="image_4.png" title="PC" width="75px" height="75px">
+	</div>
+	
+	</div>
+  </div>
+	
+	<script>
+	function toggleClass(elem,className) {
+		if (elem.className.indexOf(className) !== -1) {
+			elem.className = elem.className.replace(className,'');			
+		}
+		else {
+			elem.className = elem.className.replace(/\s+g,' ')+ ' '+ className;
+		}
+		return elem;
+	}
+	
+	function toggleDisplay(elem) {
+		const curDisplayStyle = elem.style.display;
+		
+		if (curDisplayStyle === 'none' || curDisplayStyle === '') {
+			elem.style.display = 'block';
+		}
+		else {
+			elem.style.display = 'none';
+		}
+	}
+	
+	function toggleMenuDisplay(e) {
+		const dropdown = e.currentTarget.parentNode;
+		const menu = dropdown.querySelector('.menu');
+		const icon = dropdown.querySelector('.fa-angle-right');
+		
+		toggleClass(menu,'hide');
+		toggleClass(icon, 'rotate-90');
+	}
+	
+	function handleOptionSelected(e){
+	toggleClass(e.target.parentNode, 'hide');			
+
+	const id = e.target.id;
+	const newValue = e.target.textContent + ' ';
+	const titleElem = document.querySelector('.dropdown .title');
+	const icon = document.querySelector('.dropdown .title .fa');
+
+
+	titleElem.textContent = newValue;
+	titleElem.appendChild(icon);
+	
+	//trigger custom event
+	document.querySelector('.dropdown .title').dispatchEvent(new Event('change'));
+	//setTimeout is used so transition is properly shown
+	setTimeout(() => toggleClass(icon,'rotate-90',0));
+	}
+
+	function handleTitleChange(e){
+	const result = document.getElementById('result');
+
+	result.innerHTML = 'The result is: ' + e.target.textContent;
+	}
+	
+	//get elements
+	const dropdownTitle = document.querySelector('.dropdown .title');
+	const dropdownOptions = document.querySelectorAll('.dropdown .option');
+
+	//bind listeners to these elements
+	dropdownTitle.addEventListener('click', toggleMenuDisplay);
+	dropdownOptions.forEach(option => option.addEventListener('click',handleOptionSelected));
+	document.querySelector('.dropdown .title').addEventListener('change',handleTitleChange);
+	</script>
+	
+<script>
+    var container = document.querySelector("#container");
+    var activeItem = null;
+
+    var active = false;
+
+    container.addEventListener("touchstart", dragStart, false);
+    container.addEventListener("touchend", dragEnd, false);
+    container.addEventListener("touchmove", drag, false);
+
+    container.addEventListener("mousedown", dragStart, false);
+    container.addEventListener("mouseup", dragEnd, false);
+    container.addEventListener("mousemove", drag, false);
+
+    function dragStart(e) {
+
+      if (e.target !== e.currentTarget) {
+        active = true;
+
+        // this is the item we are interacting with
+        activeItem = e.target;
+
+        if (activeItem !== null) {
+          if (!activeItem.xOffset) {
+            activeItem.xOffset = 0;
+          }
+
+          if (!activeItem.yOffset) {
+            activeItem.yOffset = 0;
+          }
+
+          if (e.type === "touchstart") {
+            activeItem.initialX = e.touches[0].clientX - activeItem.xOffset;
+            activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
+          } else {
+            console.log("doing something!");
+            activeItem.initialX = e.clientX - activeItem.xOffset;
+            activeItem.initialY = e.clientY - activeItem.yOffset;
+          }
+        }
+      }
+    }
+
+    function dragEnd(e) {
+      if (activeItem !== null) {
+        activeItem.initialX = activeItem.currentX;
+        activeItem.initialY = activeItem.currentY;
+      }
+
+      active = false;
+      activeItem = null;
+    }
+
+    function drag(e) {
+      if (active) {
+        if (e.type === "touchmove") {
+          e.preventDefault();
+
+          activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
+          activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
+        } else {
+          activeItem.currentX = e.clientX - activeItem.initialX;
+          activeItem.currentY = e.clientY - activeItem.initialY;
+        }
+
+        activeItem.xOffset = activeItem.currentX;
+        activeItem.yOffset = activeItem.currentY;
+
+        setTranslate(activeItem.currentX, activeItem.currentY, activeItem);
+      }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+      el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
+	
+	function addObject(objtype) {
+        
+        if (objtype == 0) {
+        
+            var newobj = document.createElement("div");
+            var newimg = document.createElement("img");
+            newobj.class = "item one"
+            newimg.src = "image_2.png";
+            
+            document.getElementById("container").appendChild(newobj);
+            newobj.appendChild(newimg);                      
+        
+        }
+        
+        else if (objtype == 1) {
+        
+            var newobj = document.createElement("div");
+            var newimg = document.createElement("img");
+            newobj.class = "item one"
+            newimg.src = "person_1.png";
+            
+            document.getElementById("container").appendChild(newobj);
+            newobj.appendChild(newimg);                      
+        
+        }
+        
+        else if (objtype == 2) {
+        
+            var newobj = document.createElement("div");
+            var newimg = document.createElement("img");
+            newobj.class = "item one"
+            newimg.src = "image_1.png";
+            
+            document.getElementById("container").appendChild(newobj);
+            newobj.appendChild(newimg);                      
+        
+        }
+        
+        else if (objtype == 3) {
+        
+            var newobj = document.createElement("div");
+            var newimg = document.createElement("img");
+            newobj.class = "item one"
+            newimg.src = "ship.png";
+            
+            document.getElementById("container").appendChild(newobj);
+            newobj.appendChild(newimg);                      
+        
+        }
+        
+        else if (objtype == 4) {
+        
+            var newobj = document.createElement("div");
+            var newimg = document.createElement("img");
+            newobj.class = "item one"
+            newimg.src = "truck.png";
+            
+            document.getElementById("container").appendChild(newobj);
+            newobj.appendChild(newimg);                      
+        
+        }
+        
+        else if (objtype == 5) {
+        
+            var newobj = document.createElement("div");
+            var newimg = document.createElement("img");
+            newobj.class = "item one"
+            newimg.src = "image_5.png";
+            
+            document.getElementById("container").appendChild(newobj);
+            newobj.appendChild(newimg);                      
+        
+        }
+        
+    }
+  </script>
+  
+  <script>
+	
+  </script>
+</body>
+
+</html>
